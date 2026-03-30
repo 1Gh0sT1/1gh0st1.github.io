@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Указывает Яндексу и Google расположение карты сайта
+Sitemap: https://1Gh0sT1.github.io/photo-revive/sitemap.xml
