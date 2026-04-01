@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://1gh0st1.github.io/sitemap.xml
+Sitemap: https://teplyekadry.ru/sitemap.xml
