@@ -74,6 +74,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Rising glow particles
+  const glowContainer = document.getElementById('glowContainer');
+  if (glowContainer) {
+    const sectionHeight = 220;
+    for (let i = 0; i < 22; i++) {
+      const p = document.createElement('div');
+      p.className = 'glow-particle';
+      const left = Math.random() * 100;
+      const size = Math.random() * 6 + 4;
+      const delay = Math.random() * 3;
+      const duration = 3 + Math.random() * 2.5;
+      p.style.cssText = `left:${left}%;width:${size}px;height:${size}px;animation-delay:${delay}s;animation-duration:${duration}s`;
+      glowContainer.appendChild(p);
+    }
+  }
+
+  // Animated counter (count up on scroll)
+  const counterEls = document.querySelectorAll('.stat-number[data-target]');
+  const counterObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      observer.unobserve(entry.target);
+      const el = entry.target;
+      const target = parseInt(el.dataset.target, 10);
+      const duration = 1600;
+      const startTime = performance.now();
+      const easeOut = t => 1 - Math.pow(1 - t, 3);
+      const tick = (now) => {
+        const progress = Math.min((now - startTime) / duration, 1);
+        el.textContent = Math.round(easeOut(progress) * target);
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.5 });
+  counterEls.forEach(el => counterObserver.observe(el));
+
   // Tilt Effect (Optional Vanilla JS, adds 3D parallax to cards)
   const tiltElements = document.querySelectorAll('.tilt-effect');
   tiltElements.forEach(el => {
